@@ -1,3 +1,8 @@
 @import 'primevue/resources/themes/lara-light-green/theme.css';
 @import 'primeicons/primeicons.css';
+@import 'primeflex/primeflex.css';
+
+body {
+  margin: 0px !important;
+}
 
