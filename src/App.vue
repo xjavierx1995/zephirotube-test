@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
-import $axios from './plugins/axios';
-
+import { useStore } from 'vuex'
+const store = useStore()
 
 async function hello() {
-  const { data } = await $axios.get<any>("/products");
-  console.log(data);
+  const products = computed(() => store.state.products.all);
+  console.log(products.value);
 }
 onMounted(() => {
+  store.dispatch('products/getAllProducts')
   hello();
 })
 </script>
