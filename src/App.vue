@@ -1,5 +1,16 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted } from 'vue';
+import HelloWorld from './components/HelloWorld.vue';
+import $axios from './plugins/axios';
+
+
+async function hello() {
+  const { data } = await $axios.get<any>("/products");
+  console.log(data);
+}
+onMounted(() => {
+  hello();
+})
 </script>
 
 <template>
@@ -21,9 +32,11 @@ import HelloWorld from './components/HelloWorld.vue'
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
