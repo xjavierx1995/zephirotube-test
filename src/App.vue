@@ -24,6 +24,8 @@ onMounted(() => {
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
+  <Button icon="pi pi-check" label="Save" />
+
   <Button label="Submit"/>
   <Button label="Success" severity="success" />
 
