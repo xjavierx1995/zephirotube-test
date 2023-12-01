@@ -23,4 +23,4 @@ npm install
 npm run dev
 ```
 ### More information
-This project was carried out by [Javier Rodriguez](https://github.com/xjavierx1995) for a requested test using Vue 3 + Vuex. If you want to contact me, visit my [LinkedIn](https://www.linkedin.com/in/javier-rodr%C3%ADguez-93a61619a/)
+This project was carried out by [Javier Rodriguez](https://github.com/xjavierx1995) for a requested test using Vue 3 + Vuex. If you want to contact me, visit my [LinkedIn](https://www.linkedin.com/in/javier-rodr%C3%ADguez-93a61619a/).
