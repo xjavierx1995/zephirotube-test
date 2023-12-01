@@ -22,7 +22,7 @@
       </Column>
       <Column style="max-width:5rem">
         <template #body="slotProps">
-          <Button icon="pi pi-cart-plus" rounded class="mr-2" size="small" @click="addCart(slotProps.data)"/>
+          <Button icon="pi pi-cart-plus" v-if="!isInCart(slotProps.data.id)" rounded class="mr-2" size="small" @click="addCart(slotProps.data)"/>
         </template>
       </Column>
       <template #footer> {{ products ? products.length : 0 }} productos. </template>
@@ -42,14 +42,21 @@ import Column from 'primevue/column';
 import Rating from 'primevue/rating';
 import Button from 'primevue/button';
 import ModalProduct from '../components/ModalProduct.vue';
+import { ProductInCart } from '../interfaces/CartState';
 
 const store = useStore();
 const products: ComputedRef<Product[]> = computed(() => store.state.products.productsList);
+const productsInCart: ComputedRef<ProductInCart[]> = computed(() => store.state.cart.cartList);
+
 const showProductDetail = ref(false);
 
 function addCart(product: Product) {
   store.commit('products/setSelectedProduct', product);
   showProductDetail.value = true;
+}
+
+const isInCart = (productId: number) => {
+  return !!productsInCart.value.find(e => e.id === productId);
 }
 </script>
 
