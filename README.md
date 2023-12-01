@@ -1,6 +1,10 @@
 # zephirotube-test
 Test made with vue3 + vite + Vuex + PrimeVue
 
+## Demo
+
+https://shimmering-biscochitos-3d7242.netlify.app/
+
 ### Installation and configuration
 
 Dependencies:
