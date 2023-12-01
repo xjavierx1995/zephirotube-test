@@ -3,9 +3,7 @@
   <div class="card">
     <Toolbar>
       <template #start>
-        <Button icon="pi pi-plus" class="mr-2" />
-        <Button icon="pi pi-print" class="mr-2" />
-        <Button icon="pi pi-upload" />
+        <SplitButton size="small" :label="selectedCategory" :model="categories"></SplitButton>
       </template>
 
       <template #center>
@@ -16,28 +14,29 @@
       </template>
 
       <template #end>
-        <SplitButton label="Save" icon="pi pi-check" :model="items"></SplitButton>
+        <Button icon="pi pi-upload" />
       </template>
     </Toolbar>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ComputedRef } from 'vue';
+import { useStore } from 'vuex';
 import Button from "primevue/button";
 import Toolbar from 'primevue/toolbar';
 import InputText from 'primevue/inputtext';
 import SplitButton from 'primevue/splitbutton';
 
-
-const items = ref([
-  {
-    label: 'Update',
-    icon: 'pi pi-refresh'
-  },
-  {
-    label: 'Delete',
-    icon: 'pi pi-times'
+const store = useStore();
+const selectedCategory: ComputedRef<string> = computed(() => 
+  store.state.products.selectedCategory ? store.state.products.selectedCategory : 'Categoría'
+);
+const categories: ComputedRef<any[]> = computed(() => store.state.products.categoriesList.map(cat => ({
+  label: cat,
+  command: () => {
+    store.dispatch('products/getProductsByCategory', cat);
   }
-])
+})));
+
 </script>

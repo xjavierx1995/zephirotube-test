@@ -1,6 +1,7 @@
 
 export interface ProductState {
   productsList: Product[];
+  selectedProduct: Product | null;
   categoriesList: string[];
   selectedCategory: string;
 }
@@ -13,6 +14,7 @@ export interface Product {
   category: string
   image: string
   rating: Rating
+  inCart: boolean
 }
 
 export interface Rating {

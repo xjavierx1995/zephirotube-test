@@ -1,7 +1,9 @@
+import { CartState } from "../interfaces/CartState";
+import { Product } from "../interfaces/ProductState";
+
 // initial state
-const state = {
-  items: [],
-  checkoutStatus: null
+const state: CartState = {
+  cartList: []
 }
 
 // getters
@@ -14,6 +16,10 @@ const getters = {
     return 0;/* getters.cartProducts.reduce((total, product) => {
       return total + product.price * product.quantity
     }, 0) */
+  },
+
+  isProductInCart: (state: CartState) => (product: Product) => {
+    return !!state.cartList.find(e => e.id === product.id);
   }
 }
 

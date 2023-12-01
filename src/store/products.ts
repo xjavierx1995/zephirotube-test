@@ -5,7 +5,8 @@ import $axios from "../plugins/axios"
 const state: ProductState = {
   productsList: [],
   categoriesList: [],
-  selectedCategory: ''
+  selectedCategory: '',
+  selectedProduct: null,
 }
 
 // getters
@@ -43,6 +44,10 @@ const mutations = {
 
   setSelectedCategory (state: ProductState, category: string) {
     state.selectedCategory = category;
+  },
+
+  setSelectedProduct (state: ProductState, product: Product) {
+    state.selectedProduct = product;
   },
 
 }
