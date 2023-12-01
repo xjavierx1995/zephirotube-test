@@ -1,7 +1,7 @@
 <template>
   <Dialog :visible="showModal" :style="{ width: '450px' }" header="Detalles del producto" :modal="true" class="p-fluid">
     <template #closeicon>
-      <Button icon="pi pi-times" severity="secondary" text rounded @click="hideDialog" />
+      <Button icon="pi pi-times" severity="secondary" text rounded @click="emit('closeModal')" />
     </template>
     <img v-if="product.image" :src="product.image" :alt="product.title" class="max-w-10rem block m-auto pb-3" />
     <div class="field flex flex-column align-items-center mt-2">
@@ -38,9 +38,10 @@
       </div>
     </div>
     <template #footer>
-      <Button label="Cancelar" icon="pi pi-times" text @click="hideDialog" />
+      <Button label="Cancelar" icon="pi pi-times" text @click="emit('closeModal')" />
       <Button label="Añadir al carrito" icon="pi pi-check" text @click="saveProduct" />
     </template>
+    
   </Dialog>
 </template>
 
@@ -57,6 +58,7 @@ import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
 import Knob from 'primevue/knob';
 import Rating from 'primevue/rating';
+import { useToast } from "primevue/usetoast";
 
 defineProps<{ showModal: boolean }>();
 
@@ -64,12 +66,12 @@ const emit = defineEmits(['closeModal']);
 const store = useStore();
 const quantity = ref(1);
 const product: ComputedRef<Product> = computed(() => store.state.products.selectedProduct);
+const toast = useToast();
 
-const hideDialog = () => {
-  emit('closeModal');
-};
 const saveProduct = () => {
-
+  store.commit('cart/addProductToCart', { ...product.value, quantity: quantity.value });
+  toast.add({ severity: 'info', summary: '', detail: 'Producto agregado al carrito', life: 3000 });
+  emit('closeModal');
 };
 
 </script>

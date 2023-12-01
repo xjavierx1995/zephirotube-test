@@ -1,5 +1,5 @@
 <template>
-  
+  <Toast />
   <CustomToolBar/>
 
   <div class="content">
@@ -13,6 +13,7 @@ import { useStore } from 'vuex';
 
 import CustomToolBar from './components/CustomToolBar.vue';
 import ProductList from './components/ProductsList.vue';
+import Toast from 'primevue/toast';
 const store = useStore();
 
 onMounted(() => {
