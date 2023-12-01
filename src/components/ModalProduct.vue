@@ -71,7 +71,7 @@ const toast = useToast();
 const saveProduct = () => {
   store.commit('cart/addProductToCart', { ...product.value, quantity: quantity.value });
   store.commit('products/deleteSelectedProduct');
-  toast.add({ severity: 'info', summary: '', detail: 'Producto agregado al carrito', life: 3000,  });
+  toast.add({ severity: 'success', summary: '', detail: 'Producto agregado al carrito', life: 3000,  });
   emit('closeModal');
 };
 

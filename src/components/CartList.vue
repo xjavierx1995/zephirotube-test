@@ -1,7 +1,13 @@
 
 <template>
   <div class="card">
-    <DataView :value="products" :dataKey="'list'" paginator :rows="5" style="max-height: 35rem; overflow: auto;" >
+    <DataView :value="products" :dataKey="'list'" style="max-height: 35rem; overflow: auto;" 
+      :alwaysShowPaginator="false" >
+      <template #empty>
+        <div>
+          No ha agregado productos al carrito
+        </div>
+      </template>
       <template #list="slotProps">
         <div class="grid grid-nogutter">
           <div v-for="(product, index) in slotProps.items" :key="index" class="col-12">
@@ -23,7 +29,7 @@
                 </div>
                 <div class="flex flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                   <span class="text-2xl font-semibold"> ${{ product.price }} x{{ product.quantity }}</span>
-                  <span class="text-2xl font-semibold">${{ formatCurrency(product.price * product.quantity) }}</span>
+                  <span class="text-2xl font-semibold">{{ formatCurrency(product.price * product.quantity) }}</span>
                   <div class="flex gap-1">
                     <Button :disabled="product.quantity <= 1" icon="pi pi-minus" outlined size="small"
                       @click="store.commit('cart/decrementProductQuantity', product.id);"></Button>
@@ -39,7 +45,10 @@
         </div>
       </template>
     </DataView>
-    <div class="font-bold text-900 max-w-17rem">Total: {{ formatCurrency(total) }}</div>
+    <div class="flex justify-content-between align-items-center pt-3" v-if="products.length > 0">
+      <div class="font-bold text-900 max-w-17rem">Total: {{ formatCurrency(total) }}</div>
+      <Button icon="pi pi-shopping-bag" class="w-auto" label="Realizar compra"></Button>
+    </div>
   </div>
 </template>
 
