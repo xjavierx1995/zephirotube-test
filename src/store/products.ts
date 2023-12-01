@@ -3,6 +3,7 @@ import $axios from "../plugins/axios"
 
 // initial state
 const state: ProductState = {
+  allProducts: [],
   productsList: [],
   categoriesList: [],
   selectedCategory: '',
@@ -17,6 +18,7 @@ const actions = {
   getProducts ({ commit }) {
     $axios.get<Product[]>('/products').then(({data}) => {
       commit('setProducts', data);
+      commit('setAllProducts', data);
     });
   },
   getProductsByCategory ({ commit }, category) {
@@ -38,6 +40,10 @@ const mutations = {
     state.productsList = products;
   },
 
+  setAllProducts (state: ProductState, products: Product[]) {
+    state.allProducts = products;
+  },
+
   setCategories (state: ProductState, categories: string[]) {
     state.categoriesList = categories;
   },
@@ -54,6 +60,9 @@ const mutations = {
     state.selectedProduct = null;
   },
 
+  resetSelectedCategory (state: ProductState) {
+    state.selectedCategory = '';
+  },
 }
 
 export default {

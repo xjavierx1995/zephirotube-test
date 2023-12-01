@@ -1,6 +1,7 @@
 
 export interface ProductState {
   productsList: Product[];
+  allProducts: Product[];
   selectedProduct: Product | null;
   categoriesList: string[];
   selectedCategory: string;

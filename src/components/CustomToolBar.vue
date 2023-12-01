@@ -3,13 +3,13 @@
   <div class="card">
     <Toolbar id="toolbar">
       <template #start>
-        <SplitButton size="small" :label="selectedCategory" :model="categories"></SplitButton>
+        <SplitButton size="small" @click="resetCategory" :label="selectedCategory" :model="categories"></SplitButton>
       </template>
 
       <template #center>
         <span class="p-input-icon-left">
           <i class="pi pi-search" />
-          <InputText placeholder="Search" />
+          <InputText placeholder="Buscar producto" v-model="search" @input="searchProduct"/>
         </span>
       </template>
 
@@ -32,9 +32,12 @@ import InputText from 'primevue/inputtext';
 import SplitButton from 'primevue/splitbutton';
 import OverlayPanel from 'primevue/overlaypanel';
 import CartList from './CartList.vue';
+import { Product } from '../interfaces/ProductState';
 
 const store = useStore();
 const op = ref();
+const search = ref('');
+const allProducts: ComputedRef<Product[]> = computed(() => store.state.products.allProducts);
 const selectedCategory: ComputedRef<string> = computed(() =>
   store.state.products.selectedCategory ? store.state.products.selectedCategory : 'Categoría'
 );
@@ -47,6 +50,16 @@ const toggle = (event) => {
   op.value.toggle(event);
 };
 
+const searchProduct = () => {
+  const productsFiltered = allProducts.value.filter(e => e.title.toLowerCase().includes(search.value.toLowerCase()));
+  store.commit('products/resetSelectedCategory');
+  store.commit('products/setProducts', productsFiltered);
+};
+
+const resetCategory = () => {
+  store.commit('products/resetSelectedCategory');
+  store.commit('products/setProducts', allProducts.value);
+};
 </script>
 
 <style scoped>
