@@ -47,7 +47,7 @@
     </DataView>
     <div class="flex justify-content-between align-items-center pt-3" v-if="products.length > 0">
       <div class="font-bold text-900 max-w-17rem">Total: {{ formatCurrency(total) }}</div>
-      <Button icon="pi pi-shopping-bag" class="w-auto" label="Realizar compra"></Button>
+      <Button @click="confirmPurchase()" icon="pi pi-shopping-bag"  class="w-auto" label="Realizar compra"></Button>
     </div>
   </div>
 </template>
@@ -80,6 +80,21 @@ const confirmDelete = (productId) => {
     accept: () => {
       store.commit('cart/deleteProductFromCart', productId);
       toast.add({ severity: 'info', summary: '', detail: 'Se ha eliminado el producto del carrito de compras', life: 3000 });
+    },
+  });
+};
+
+const confirmPurchase = () => {
+  confirm.require({
+    message: `El total de la compra es ${formatCurrency(total.value)}`,
+    header: '¿Desea continuar con el proceso?',
+    icon: 'pi pi-info-circle',
+    rejectClass: 'p-button-danger p-button-text',
+    acceptClass: 'p-button-text p-button-text',
+    acceptLabel: '¡Comprar!',
+    accept: () => {
+      store.commit('cart/restartCartStore');
+      toast.add({ severity: 'success', summary: '', detail: '¡Se ha realizado la compra satisfactoriamente!', life: 3000 });
     },
   });
 };

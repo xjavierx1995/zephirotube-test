@@ -7,7 +7,7 @@ const state: ProductState = {
   productsList: [],
   categoriesList: [],
   selectedCategory: '',
-  selectedProduct: null,
+  selectedProduct: null
 }
 
 // getters
@@ -15,20 +15,20 @@ const getters = {}
 
 // actions
 const actions = {
-  getProducts ({ commit }) {
-    $axios.get<Product[]>('/products').then(({data}) => {
+  getProducts({ commit }) {
+    $axios.get<Product[]>('/products').then(({ data }) => {
       commit('setProducts', data);
       commit('setAllProducts', data);
     });
   },
-  getProductsByCategory ({ commit }, category) {
-    $axios.get<Product[]>(`/products/category/${category}`).then(({data}) => {
+  getProductsByCategory({ commit }, category) {
+    $axios.get<Product[]>(`/products/category/${category}`).then(({ data }) => {
       commit('setProducts', data);
       commit('setSelectedCategory', category);
     });
   },
-  getCategories ({ commit }) {
-    $axios.get<string[]>('/products/categories').then(({data}) => {
+  getCategories({ commit }) {
+    $axios.get<string[]>('/products/categories').then(({ data }) => {
       commit('setCategories', data);
     });
   }
@@ -36,31 +36,31 @@ const actions = {
 
 // mutations
 const mutations = {
-  setProducts (state: ProductState, products: Product[]) {
+  setProducts(state: ProductState, products: Product[]) {
     state.productsList = products;
   },
 
-  setAllProducts (state: ProductState, products: Product[]) {
+  setAllProducts(state: ProductState, products: Product[]) {
     state.allProducts = products;
   },
 
-  setCategories (state: ProductState, categories: string[]) {
+  setCategories(state: ProductState, categories: string[]) {
     state.categoriesList = categories;
   },
 
-  setSelectedCategory (state: ProductState, category: string) {
+  setSelectedCategory(state: ProductState, category: string) {
     state.selectedCategory = category;
   },
 
-  setSelectedProduct (state: ProductState, product: Product) {
+  setSelectedProduct(state: ProductState, product: Product) {
     state.selectedProduct = product;
   },
 
-  deleteSelectedProduct (state: ProductState) {
+  deleteSelectedProduct(state: ProductState) {
     state.selectedProduct = null;
   },
 
-  resetSelectedCategory (state: ProductState) {
+  resetSelectedCategory(state: ProductState) {
     state.selectedCategory = '';
   },
 }

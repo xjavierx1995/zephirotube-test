@@ -37,6 +37,12 @@ const mutations = {
     state.cartList = state.cartList.filter(item => item.id !== id);
   },
 
+  restartCartStore(state: CartState) {
+    Object.assign(state, {
+      cartList: []
+    })
+  },
+
 }
 
 export default {
