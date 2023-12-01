@@ -14,10 +14,10 @@
       </template>
 
       <template #end>
-        <Button icon="pi pi-shopping-cart" @click="toggle" />
-        <OverlayPanel ref="op" appendTo="#toolbar" showCloseIcon :dismissable="false" style="max-width: 41rem;">
+        <Button icon="pi pi-shopping-cart" @click="showCart = true" />
+        <Sidebar v-model:visible="showCart" header="Carrito de compras" class="w-full md:w-20rem lg:w-30rem" position="right">
           <CartList />
-        </OverlayPanel>
+        </Sidebar>
       </template>
     </Toolbar>
   </div>
@@ -30,12 +30,12 @@ import Button from "primevue/button";
 import Toolbar from 'primevue/toolbar';
 import InputText from 'primevue/inputtext';
 import SplitButton from 'primevue/splitbutton';
-import OverlayPanel from 'primevue/overlaypanel';
 import CartList from './CartList.vue';
 import { Product } from '../interfaces/ProductState';
+import Sidebar from 'primevue/sidebar';
+
 
 const store = useStore();
-const op = ref();
 const search = ref('');
 const allProducts: ComputedRef<Product[]> = computed(() => store.state.products.allProducts);
 const selectedCategory: ComputedRef<string> = computed(() =>
@@ -46,9 +46,7 @@ const categories: ComputedRef<any[]> = computed(() => store.state.products.categ
   command: () => store.dispatch('products/getProductsByCategory', cat)
 })));
 
-const toggle = (event) => {
-  op.value.toggle(event);
-};
+const showCart = ref(false);
 
 const searchProduct = () => {
   const productsFiltered = allProducts.value.filter(e => e.title.toLowerCase().includes(search.value.toLowerCase()));
