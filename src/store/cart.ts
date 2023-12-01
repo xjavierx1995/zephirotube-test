@@ -1,5 +1,4 @@
 import { CartState, ProductInCart } from "../interfaces/CartState";
-import { Product } from "../interfaces/ProductState";
 
 // initial state
 const state: CartState = {
@@ -8,28 +7,15 @@ const state: CartState = {
 
 // getters
 const getters = {
-  cartProducts: (state, getters, rootState) => {
-    return [];
-  },
-
-  cartTotalPrice: (state, getters) => {
-    return 0;/* getters.cartProducts.reduce((total, product) => {
+  cartTotalPrice: (state) => {
+    return state.cartList.reduce((total, product) => {
       return total + product.price * product.quantity
-    }, 0) */
+    }, 0)
   },
-
-  isProductInCart: (state: CartState) => (product: Product) => {
-    return !!state.cartList.find(e => e.id === product.id);
-  }
 }
 
 // actions
-const actions = {
-
-  addProductToCart ({ state, commit }, product) {
-    commit('setCheckoutStatus', null)
-  }
-}
+const actions = {}
 
 // mutations
 const mutations = {
@@ -37,18 +23,20 @@ const mutations = {
     state.cartList.push(product)
   },
 
-  incrementItemQuantity (state, { id }) {
-    const cartItem = state.items.find(item => item.id === id)
+  incrementProductQuantity (state, id) {
+    const cartItem = state.cartList.find(item => item.id === id)
     cartItem.quantity++
   },
 
-  setCartItems (state, { items }) {
-    state.items = items
+  decrementProductQuantity (state, id) {
+    const cartItem = state.cartList.find(item => item.id === id)
+    cartItem.quantity--
   },
 
-  setCheckoutStatus (state, status) {
-    state.checkoutStatus = status
-  }
+  deleteProductFromCart (state, id) {
+    state.cartList = state.cartList.filter(item => item.id !== id);
+  },
+
 }
 
 export default {

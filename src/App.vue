@@ -1,5 +1,7 @@
 <template>
-  <Toast />
+  <Toast position="bottom-left"/>
+  <ConfirmDialog/>
+
   <CustomToolBar/>
 
   <div class="content">
@@ -14,6 +16,7 @@ import { useStore } from 'vuex';
 import CustomToolBar from './components/CustomToolBar.vue';
 import ProductList from './components/ProductsList.vue';
 import Toast from 'primevue/toast';
+import ConfirmDialog from 'primevue/confirmdialog';
 const store = useStore();
 
 onMounted(() => {

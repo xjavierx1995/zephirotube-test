@@ -14,29 +14,37 @@
       </template>
 
       <template #end>
-        <Button icon="pi pi-upload" />
+        <Button icon="pi pi-shopping-cart" @click="toggle" />
+        <OverlayPanel ref="op" appendTo="body" showCloseIcon :dismissable="false" style="max-width: 41rem;">
+          <CartList/>
+        </OverlayPanel>
       </template>
     </Toolbar>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, ref } from 'vue';
 import { useStore } from 'vuex';
 import Button from "primevue/button";
 import Toolbar from 'primevue/toolbar';
 import InputText from 'primevue/inputtext';
 import SplitButton from 'primevue/splitbutton';
+import OverlayPanel from 'primevue/overlaypanel';
+import CartList from './CartList.vue';
 
 const store = useStore();
+const op = ref();
 const selectedCategory: ComputedRef<string> = computed(() => 
   store.state.products.selectedCategory ? store.state.products.selectedCategory : 'Categoría'
 );
 const categories: ComputedRef<any[]> = computed(() => store.state.products.categoriesList.map(cat => ({
   label: cat,
-  command: () => {
-    store.dispatch('products/getProductsByCategory', cat);
-  }
+  command: () => store.dispatch('products/getProductsByCategory', cat)
 })));
+
+const toggle = (event) => {
+    op.value.toggle(event);
+};
 
 </script>

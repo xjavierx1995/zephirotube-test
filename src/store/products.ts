@@ -50,6 +50,10 @@ const mutations = {
     state.selectedProduct = product;
   },
 
+  deleteSelectedProduct (state: ProductState) {
+    state.selectedProduct = null;
+  },
+
 }
 
 export default {
